@@ -33,6 +33,16 @@ public class UserRegistration {
         } else {
             System.out.println("Email " + email + " is invalid. The email must follow the pattern abc.xyz@bl.co.in");
         }
+
+        System.out.print("Enter your mobile number: ");
+        String mobileNumber = scanner.nextLine();
+
+        String mobilePattern = "^[0-9]{2} [0-9]{10}$";
+        if (mobileNumber != null && mobileNumber.matches(mobilePattern)) {
+            System.out.println("Mobile number " + mobileNumber + " is valid.");
+        } else {
+            System.out.println("Mobile number " + mobileNumber + " is invalid. The mobile number must follow the pattern 91 9919819801");
+        }
     }
     }
 
