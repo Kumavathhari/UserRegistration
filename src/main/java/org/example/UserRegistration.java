@@ -24,6 +24,15 @@ public class UserRegistration {
             System.out.println("Last name " + lastName + " is invalid. The last name must start with a capital letter and have a minimum of 3 characters.");
         }
 
+        System.out.print("Enter your email: ");
+        String email = scanner.nextLine();
+
+        String emailPattern = "^[a-zA-Z0-9._%+-]+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,6}$";
+        if (email != null && email.matches(emailPattern)) {
+            System.out.println("Email " + email + " is valid.");
+        } else {
+            System.out.println("Email " + email + " is invalid. The email must follow the pattern abc.xyz@bl.co.in");
+        }
     }
     }
 
