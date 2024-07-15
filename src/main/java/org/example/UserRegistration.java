@@ -47,10 +47,10 @@ public class UserRegistration {
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
 
-        if (password != null && password.length() >= 8) {
+        if (password != null && password.length() >= 8 && password.matches(".*[A-Z].*")) {
             System.out.println("Password is valid.");
         } else {
-            System.out.println("Password is invalid. The password must have a minimum of 8 characters.");
+            System.out.println("Password is invalid. The password must have a minimum of 8 characters and at least 1 uppercase letter.");
         }
     }
     }
