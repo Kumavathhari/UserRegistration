@@ -43,6 +43,15 @@ public class UserRegistration {
         } else {
             System.out.println("Mobile number " + mobileNumber + " is invalid. The mobile number must follow the pattern 91 9919819801");
         }
+
+        System.out.print("Enter your password: ");
+        String password = scanner.nextLine();
+
+        if (password != null && password.length() >= 8) {
+            System.out.println("Password is valid.");
+        } else {
+            System.out.println("Password is invalid. The password must have a minimum of 8 characters.");
+        }
     }
     }
 
