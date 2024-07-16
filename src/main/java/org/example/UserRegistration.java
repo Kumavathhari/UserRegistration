@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserRegistration {
@@ -46,6 +48,19 @@ public class UserRegistration {
             System.out.println("Password is invalid. The password must have a minimum of 8 characters, at least 1 uppercase letter, at least 1 numeric character, and exactly 1 special character.");
         }
 
+        // Take multiple email samples
+        System.out.print("Enter the number of email samples: ");
+        int emailCount = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline
+
+        List<String> emailSamples = new ArrayList<>();
+        for (int i = 0; i < emailCount; i++) {
+            System.out.print("Enter email sample " + (i + 1) + ": ");
+            emailSamples.add(scanner.nextLine());
+        }
+        List<String> validEmails = clearInvalidEmails(emailSamples);
+        System.out.println("Valid emails: " + validEmails);
+
         scanner.close();
     }
 
@@ -64,5 +79,15 @@ public class UserRegistration {
     public static boolean isValidPassword(String password) {
         return password != null && password.length() >= 8 && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.matches(".*[^a-zA-Z0-9].*");
     }
+
+    public static List<String> clearInvalidEmails(List<String> emails) {
+        List<String> validEmails = new ArrayList<>();
+        for (String email : emails) {
+            if (isValidEmail(email)) {
+                validEmails.add(email);
+            }
+        }
+        return validEmails;
     }
+}
 
