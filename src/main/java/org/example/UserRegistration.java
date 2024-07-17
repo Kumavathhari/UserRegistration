@@ -10,62 +10,50 @@ public class UserRegistration {
 
         System.out.print("Enter your first name: ");
         String firstName = scanner.nextLine();
-        if (isValidName(firstName)) {
-            System.out.println("First name " + firstName + " is valid.");
+        if (isValidFirstName(firstName)) {
+            System.out.println("True");
         } else {
-            System.out.println("First name " + firstName + " is invalid. The first name must start with a capital letter and have a minimum of 3 characters.");
+            System.out.println("False : The first name must start with a capital letter and have a minimum of 3 characters.");
         }
 
         System.out.print("Enter your last name: ");
         String lastName = scanner.nextLine();
-        if (isValidName(lastName)) {
-            System.out.println("Last name " + lastName + " is valid.");
+        if (isValidLastName(lastName)) {
+            System.out.println("True");
         } else {
-            System.out.println("Last name " + lastName + " is invalid. The last name must start with a capital letter and have a minimum of 3 characters.");
+            System.out.println("False : The last name must start with a capital letter and have a minimum of 3 characters.");
         }
 
         System.out.print("Enter your email: ");
         String email = scanner.nextLine();
         if (isValidEmail(email)) {
-            System.out.println("Email " + email + " is valid.");
+            System.out.println("True");
         } else {
-            System.out.println("Email " + email + " is invalid. The email must follow the pattern abc.xyz@bl.co.in");
+            System.out.println("False : The email must follow the pattern abc.xyz@bl.co.in");
         }
 
         System.out.print("Enter your mobile number: ");
         String mobileNumber = scanner.nextLine();
         if (isValidMobileNumber(mobileNumber)) {
-            System.out.println("Mobile number " + mobileNumber + " is valid.");
+            System.out.println("True");
         } else {
-            System.out.println("Mobile number " + mobileNumber + " is invalid. The mobile number must follow the pattern 91 9919819801");
+            System.out.println("False : The mobile number must follow the pattern 91 9919819801");
         }
 
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
         if (isValidPassword(password)) {
-            System.out.println("Password is valid.");
+            System.out.println("True");
         } else {
-            System.out.println("Password is invalid. The password must have a minimum of 8 characters, at least 1 uppercase letter, at least 1 numeric character, and exactly 1 special character.");
+            System.out.println("False : The password must have a minimum of 8 characters, at least 1 uppercase letter, at least 1 numeric character, and exactly 1 special character.");
         }
-
-        // Take multiple email samples
-        System.out.print("Enter the number of email samples: ");
-        int emailCount = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline
-
-        List<String> emailSamples = new ArrayList<>();
-        for (int i = 0; i < emailCount; i++) {
-            System.out.print("Enter email sample " + (i + 1) + ": ");
-            emailSamples.add(scanner.nextLine());
-        }
-        List<String> validEmails = clearInvalidEmails(emailSamples);
-        System.out.println("Valid emails: " + validEmails);
 
         scanner.close();
     }
 
-    public static boolean isValidName(String name) {
-        return name != null && name.matches("^[A-Z][a-zA-Z]{2,}$");
+    public static boolean isValidFirstName(String name) {return name != null && name.matches("^[A-Z][a-zA-Z]{2,}$");
+    }
+    public static boolean isValidLastName(String name) {return name != null && name.matches("^[A-Z][a-zA-Z]{2,}$");
     }
 
     public static boolean isValidEmail(String email) {
@@ -80,14 +68,6 @@ public class UserRegistration {
         return password != null && password.length() >= 8 && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.matches(".*[^a-zA-Z0-9].*");
     }
 
-    public static List<String> clearInvalidEmails(List<String> emails) {
-        List<String> validEmails = new ArrayList<>();
-        for (String email : emails) {
-            if (isValidEmail(email)) {
-                validEmails.add(email);
-            }
-        }
-        return validEmails;
-    }
+
 }
 
