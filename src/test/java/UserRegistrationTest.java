@@ -1,3 +1,4 @@
+import org.example.CustomException;
 import org.example.UserRegistration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -5,68 +6,118 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 public class UserRegistrationTest {
-
-        @Test
-        public void validFirstNameTest() {
-            Boolean result = UserRegistration.isValidFirstName("Hari");
-            Assertions.assertTrue(result);
+    static UserRegistration test = new UserRegistration();
+    @Test
+    public void validFirstNameTest(){
+        try{
+            Assertions.assertTrue(test.firstName("Hari"));
+        }catch (CustomException e){
+            Assertions.fail("Exception should not have been thrown");
         }
-
-        @Test
-        public void inValidFirstNameTest() {
-            Boolean result = UserRegistration.isValidFirstName("hari");
-            Assertions.assertFalse(result);
+    }
+    @Test
+    public void invalidFirstNameTest(){
+        try{
+            test.firstName("hari");
+            Assertions.fail("Expected Custom Exception");
+        }catch (CustomException e){
+            Assertions.assertEquals("Invalid first name", e.getMessage());
         }
+    }
 
-        @Test
-        public void validLastNameTest() {
-            Boolean result = UserRegistration.isValidFirstName("Naik");
-            Assertions.assertTrue(result);
-        }
+    @Test
+    public void validLastNameTest(){
 
-        @Test
-        public void inValidLastNameTest() {
-            Boolean result = UserRegistration.isValidFirstName("naik");
-            Assertions.assertFalse(result);
+        try{
+            Assertions.assertTrue(test.lastName("Naik"));
+        }catch (CustomException e){
+            Assertions.fail("Exception should not have been thrown");
         }
+    }
 
-        @Test
-        public void validEmailTest() {
-            Boolean result = UserRegistration.isValidEmail("harinaik@gmail.com");
-            Assertions.assertTrue(result);
+    @Test
+    public void invalidLastNameTest(){
+        try{
+            test.lastName("naik");
+            Assertions.fail("Expected Custom Exception");
+        }catch (CustomException e){
+            Assertions.assertEquals("Invalid last name", e.getMessage());
         }
+    }
 
-        @Test
-        public void inValidEmailTest() {
-            Boolean result = UserRegistration.isValidEmail("Harikddfnvodn");
-            Assertions.assertFalse(result);
-        }
-        @ParameterizedTest
-        @ValueSource(strings = {"Hari.Naik007@gmail.com", "Good.007@gmail.com", "Harry.007Naik@gmail.com"})
-        public void validEmailTest(String mail) {
-            Boolean result = UserRegistration.isValidEmail(mail);
-            Assertions.assertTrue(result);
-        }
-
-        @ParameterizedTest
-        @ValueSource(strings = {"Hari#gmail.com",
-                "Harigmail.com", "205Hari@gmail@com"})
-        public void inValidEmailTest(String mail) {
-            Boolean result = UserRegistration.isValidEmail(mail);
-            Assertions.assertFalse(result);
-        }
-
-        @Test
-        public void validMobileTest() {
-            Boolean result = UserRegistration.isValidMobileNumber("91 9123456789");
-            Assertions.assertTrue(result);
-        }
-
-        @Test
-        public void inValidMobileTest() {
-            Boolean result = UserRegistration.isValidMobileNumber("9123456789");
-            Assertions.assertFalse(result);
+    @Test
+    public void validEmailTest(){
+        try{
+            Assertions.assertTrue(test.validateEmail("harinaik@gmail.com"));
+        }catch (CustomException e){
+            Assertions.fail("Exception should not have been thrown");
         }
 
     }
 
+    @Test
+    public void invalidEmailTest(){
+        try{
+            test.validateEmail("harinaik");
+            Assertions.fail("Expected Custom Exception");
+        }catch (CustomException e){
+            Assertions.assertEquals("Invalid email", e.getMessage());
+        }
+    }
+
+    @Test
+    public void validMobileNumberTest(){
+        try{
+            Assertions.assertTrue(test.validateMobileNumber("91 9618101467"));
+        }catch (CustomException e){
+            Assertions.fail("Exception should not have been thrown");
+        }
+
+    }
+    @Test
+    public void invalidMobileNumberTest(){
+        try{
+            test.validateMobileNumber("9618101467");
+            Assertions.fail("Expected Custom Exception");
+        }catch (CustomException e){
+            Assertions.assertEquals("Invalid mobile number", e.getMessage());
+        }
+    }
+
+    @Test
+    public void validPasswordTest(){
+        try{
+            Assertions.assertTrue(test.validatePassword("Hari$007"));
+        }catch (CustomException e){
+            Assertions.fail("Exception should not have been thrown");
+        }
+    }
+    @Test
+    public void invalidPasswordTest(){
+        try{
+            test.validatePassword("harinaik");
+            Assertions.fail("Expected Custom Exception");
+        }catch (CustomException e){
+            Assertions.assertEquals("Invalid password", e.getMessage());
+        }
+
+    }
+
+
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "hari.naik@gmail.com",
+            "hello.man@gmail.com",
+            "good.morning@gmail.com",
+            "happy.days@gmail.com"
+    })
+
+    public void validEmail(String mail){
+        try{
+            Assertions.assertTrue(test.validateEmail(mail));
+        }catch (CustomException e){
+            Assertions.fail("Exception should not have been thrown");
+        }
+    }
+}

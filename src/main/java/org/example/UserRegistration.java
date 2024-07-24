@@ -1,73 +1,87 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.regex.*;
 
 public class UserRegistration {
+    public boolean firstName(String firstName) throws CustomException{
+        if(firstName.isEmpty()){
+            throw new IllegalArgumentException("Wrong input");
+        }
+        String firstNamePattern = "^[A-Z][a-zA-Z]{2,}$";
+        Pattern compiledPattern1 = Pattern.compile(firstNamePattern);
+        Matcher matcher1 = compiledPattern1.matcher(firstName);
+        if(matcher1.matches()){
+            return true;
+        }else{
+            throw new CustomException("Invalid first name");
+        }
+    }
+    public boolean lastName(String lastName) throws CustomException{
+        if(lastName.isEmpty()){
+            throw new IllegalArgumentException("Wrong input");
+        }
+        String lastNamePattern = "^[A-Z][a-zA-Z]{2,}$";
+        Pattern compiledPattern2 = Pattern.compile(lastNamePattern);
+        Matcher matcher2 = compiledPattern2.matcher(lastName);
+        if(matcher2.matches()){
+            return true;
+        }else{
+            throw new CustomException("Invalid last name");
+        }
+    }
+    public boolean validateEmail(String email) throws CustomException{
+        if(email.isEmpty()){
+            throw new IllegalArgumentException("Wrong input");
+        }
+        String emailPattern = "^[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}(\\.[a-zA-Z]{2,6})?$";
+        Pattern compiledPattern3 = Pattern.compile(emailPattern);
+        Matcher matcher3 = compiledPattern3.matcher(email);
+        if(matcher3.matches()){
+            return true;
+        }else{
+            throw new CustomException("Invalid email");
+        }
+    }
+    public boolean validateMobileNumber(String mobileNumber) throws CustomException{
+        if(mobileNumber.isEmpty()){
+            throw new IllegalArgumentException("Wrong input");
+        }
+        String mobilePattern = "^\\d{2} \\d{10}$";
+        Pattern compiledPattern4 = Pattern.compile(mobilePattern);
+        Matcher matcher4 = compiledPattern4.matcher(mobileNumber);
+        if(matcher4.matches()){
+            return true;
+        }else{
+            throw new CustomException("Invalid mobile number");
+        }
+    }
+
+    public boolean validatePassword(String password) throws CustomException{
+        if(password.isEmpty()){
+            throw new IllegalArgumentException("Wrong input");
+        }
+        String passwordPattern = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        String specialCharacterPattern = "[@$!%*?&]";
+
+        Pattern compiledPattern5 = Pattern.compile(passwordPattern);
+        Pattern specialCharacterCompiledPattern = Pattern.compile(specialCharacterPattern);
+
+        Matcher matcher5 = compiledPattern5.matcher(password);
+        Matcher specialCharacterMatcher = specialCharacterCompiledPattern.matcher(password);
+
+        int specialCharacterCount = 0;
+        while (specialCharacterMatcher.find()) {
+            specialCharacterCount++;
+        }
+        if (matcher5.matches() && specialCharacterCount == 1) {
+            return true;
+        }else {
+            throw new CustomException("Invalid password");
+        }
+    }
+
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter your first name: ");
-        String firstName = scanner.nextLine();
-        if (isValidFirstName(firstName)) {
-            System.out.println("True");
-        } else {
-            System.out.println("False : The first name must start with a capital letter and have a minimum of 3 characters.");
-        }
-
-        System.out.print("Enter your last name: ");
-        String lastName = scanner.nextLine();
-        if (isValidLastName(lastName)) {
-            System.out.println("True");
-        } else {
-            System.out.println("False : The last name must start with a capital letter and have a minimum of 3 characters.");
-        }
-
-        System.out.print("Enter your email: ");
-        String email = scanner.nextLine();
-        if (isValidEmail(email)) {
-            System.out.println("True");
-        } else {
-            System.out.println("False : The email must follow the pattern abc.xyz@bl.co.in");
-        }
-
-        System.out.print("Enter your mobile number: ");
-        String mobileNumber = scanner.nextLine();
-        if (isValidMobileNumber(mobileNumber)) {
-            System.out.println("True");
-        } else {
-            System.out.println("False : The mobile number must follow the pattern 91 9919819801");
-        }
-
-        System.out.print("Enter your password: ");
-        String password = scanner.nextLine();
-        if (isValidPassword(password)) {
-            System.out.println("True");
-        } else {
-            System.out.println("False : The password must have a minimum of 8 characters, at least 1 uppercase letter, at least 1 numeric character, and exactly 1 special character.");
-        }
-
-        scanner.close();
     }
-
-    public static boolean isValidFirstName(String name) {return name != null && name.matches("^[A-Z][a-zA-Z]{2,}$");
-    }
-    public static boolean isValidLastName(String name) {return name != null && name.matches("^[A-Z][a-zA-Z]{2,}$");
-    }
-
-    public static boolean isValidEmail(String email) {
-        return email != null && email.matches("^[a-zA-Z0-9._%+-]+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,6}$");
-    }
-
-    public static boolean isValidMobileNumber(String mobileNumber) {
-        return mobileNumber != null && mobileNumber.matches("^[0-9]{2} [0-9]{10}$");
-    }
-
-    public static boolean isValidPassword(String password) {
-        return password != null && password.length() >= 8 && password.matches(".*[A-Z].*") && password.matches(".*[0-9].*") && password.matches(".*[^a-zA-Z0-9].*");
-    }
-
-
 }
-
